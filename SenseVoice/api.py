@@ -30,21 +30,16 @@ regex = r"<\|.*\|>"
 
 app = FastAPI()
 
-
-@app.get("/", response_class=HTMLResponse)
-async def root():
-    return """
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset=utf-8>
-            <title>Api information</title>
-        </head>
-        <body>
-            <a href='./docs'>Documents of API</a>
-        </body>
-    </html>
+@app.get("/health")
+async def health_check():
     """
+    健康检查端点，用于Qt应用检测服务状态
+    """
+    return {"status": "ok", "service": "SenseVoice", "version": "1.0"}
+
+@app.get("/")
+async def root():
+    return {"message": "SenseVoice API is running"}
 
 @app.post("/api/v1/asr")
 async def turn_audio_to_text(files: Annotated[List[bytes], File(description="wav or mp3 audios in 16KHz")], keys: Annotated[str, Form(description="name of each audio joined with comma")], lang: Annotated[Language, Form(description="language of audio content")] = "auto"):

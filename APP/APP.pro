@@ -1,6 +1,4 @@
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui widgets network multimedia
 
 CONFIG += c++11
 
@@ -17,10 +15,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    voicetextedit.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    voicetextedit.h
 
 FORMS += \
     mainwindow.ui
