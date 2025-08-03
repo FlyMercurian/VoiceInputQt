@@ -60,7 +60,7 @@ async def turn_audio_to_text(files: Annotated[List[bytes], File(description="wav
     res = m.inference(
         data_in=audios,
         language=lang, # "zh", "en", "yue", "ja", "ko", "nospeech"
-        use_itn=False,
+        use_itn=True,  #输出结果中是否包含标点与逆文本正则化。
         ban_emo_unk=False,
         key=key,
         fs=audio_fs,
@@ -68,8 +68,26 @@ async def turn_audio_to_text(files: Annotated[List[bytes], File(description="wav
     )
     if len(res) == 0:
         return {"result": []}
+    
+    print("=" * 60)
+    print("🎤 SenseVoice 识别结果调试信息")
+    print("=" * 60)
+    
     for it in res[0]:
+        print(f"📍 处理音频: {it.get('key', 'unknown')}")
+        print(f"🔤 原始识别文本: {repr(it['text'])}")
+        
         it["raw_text"] = it["text"]
         it["clean_text"] = re.sub(regex, "", it["text"], 0, re.MULTILINE)
+        print(f"🧹 清理标记后: {repr(it['clean_text'])}")
+        
         it["text"] = rich_transcription_postprocess(it["text"])
-    return {"result": res[0]}
+        print(f"✨ 最终处理结果: {repr(it['text'])}")
+        print("-" * 40)
+    
+    print("📤 返回给客户端的完整响应:")
+    result = {"result": res[0]}
+    print(result)
+    print("=" * 60)
+    
+    return result

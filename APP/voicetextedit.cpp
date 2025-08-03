@@ -366,6 +366,7 @@ void VoiceTextEdit::onRecognitionFinished(QNetworkReply *reply)
     QJsonObject obj = doc.object();
     QString recognizedText;
     
+    qDebug() << "=========== Qt客户端解析调试信息 ===========";
     qDebug() << "JSON object keys:" << obj.keys();
     
     // 根据SenseVoice API响应格式解析
@@ -376,13 +377,29 @@ void VoiceTextEdit::onRecognitionFinished(QNetworkReply *reply)
         if (!resultArray.isEmpty()) {
             QJsonObject firstResult = resultArray[0].toObject();
             qDebug() << "First result keys:" << firstResult.keys();
-            recognizedText = firstResult["text"].toString();
-            qDebug() << "Recognized text:" << recognizedText;
+            
+            // 打印所有可用的文本字段
+            QString rawText = firstResult["raw_text"].toString();
+            QString cleanText = firstResult["clean_text"].toString();
+            QString finalText = firstResult["text"].toString();
+            
+            qDebug() << "🔤 原始文本 (raw_text):" << rawText;
+            qDebug() << "🧹 清理文本 (clean_text):" << cleanText;
+            qDebug() << "✨ 最终文本 (text):" << finalText;
+            
+            // 使用最终处理的text字段
+            recognizedText = finalText;
+            qDebug() << "📝 将要插入的文本:" << recognizedText;
+            qDebug() << "📏 文本长度:" << recognizedText.length();
+            
+            }
         }
     } else if (obj.contains("text")) {
         recognizedText = obj["text"].toString();
         qDebug() << "Direct text:" << recognizedText;
     }
+    
+    qDebug() << "=============================================";
     
     if (recognizedText.isEmpty()) {
         emit statusChanged("未识别到有效内容");
