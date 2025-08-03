@@ -391,8 +391,6 @@ void VoiceTextEdit::onRecognitionFinished(QNetworkReply *reply)
             recognizedText = finalText;
             qDebug() << "📝 将要插入的文本:" << recognizedText;
             qDebug() << "📏 文本长度:" << recognizedText.length();
-            
-            }
         }
     } else if (obj.contains("text")) {
         recognizedText = obj["text"].toString();

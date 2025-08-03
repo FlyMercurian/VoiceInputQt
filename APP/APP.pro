@@ -16,11 +16,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    voicetextedit.cpp
+    voicetextedit.cpp \
+    voicerecognitionmanager.cpp \
+    simplevoicetextedit.cpp
 
 HEADERS += \
     mainwindow.h \
-    voicetextedit.h
+    voicetextedit.h \
+    voicerecognitionmanager.h \
+    simplevoicetextedit.h
 
 FORMS += \
     mainwindow.ui
