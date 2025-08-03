@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupVoiceTextEdit();
     
     // 设置窗口标题
-    setWindowTitle("语音输入演示 - 新架构版本");
+    setWindowTitle("语音录入应用-本地部署版");
     
     // 设置初始状态
     statusBar()->showMessage("语音识别管理器已初始化 - 长按 'V' 键开始语音输入", 3000);

@@ -16,9 +16,50 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>医疗语音录入应用</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>术中观察</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
      <widget class="SimpleVoiceTextEdit" name="voicetextEdit_1"/>
     </item>
-    <item row="0" column="1">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>术后报告</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
      <widget class="SimpleVoiceTextEdit" name="voicetextEdit_2"/>
     </item>
    </layout>
