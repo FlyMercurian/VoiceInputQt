@@ -12,7 +12,7 @@ from funasr.utils.postprocess_utils import rich_transcription_postprocess
 
 quantize = False
 
-model_dir = "iic/SenseVoiceSmall"
+model_dir = "./model/iic/SenseVoiceSmall"
 model, kwargs = SenseVoiceSmall.from_pretrained(model=model_dir, device="cuda:0")
 
 rebuilt_model = model.export(type="onnx", quantize=False)

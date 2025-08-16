@@ -8,7 +8,7 @@ from funasr_onnx import SenseVoiceSmall
 from funasr_onnx.utils.postprocess_utils import rich_transcription_postprocess
 
 
-model_dir = "iic/SenseVoiceSmall"
+model_dir = "./model/iic/SenseVoiceSmall"
 
 model = SenseVoiceSmall(model_dir, batch_size=10, quantize=True)
 

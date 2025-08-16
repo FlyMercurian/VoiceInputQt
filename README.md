@@ -34,6 +34,12 @@ VoiceInputQt/
 
 **Python环境**（SenseVoice服务）:
 ```bash
+//切换虚拟环境
+# 创建一个名为venv 的虚拟环境。
+python -m venv .venv
+#进入虚拟环境
+.venv\Scripts\activate
+
 cd SenseVoice
 pip install -r requirements.txt
 ```

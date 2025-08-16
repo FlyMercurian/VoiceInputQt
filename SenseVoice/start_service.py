@@ -36,7 +36,7 @@ def check_model():
     参数说明：无
     返回值：bool，模型是否可用
     """
-    model_path = Path("model/iic/SenseVoiceSmall")
+    model_path = Path("./model/iic/SenseVoiceSmall")
     if model_path.exists():
         print("✓ 模型文件检查通过")
         return True

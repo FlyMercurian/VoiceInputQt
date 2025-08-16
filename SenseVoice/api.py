@@ -1,5 +1,7 @@
 # Set the device with environment, default is cuda:0
-# export SENSEVOICE_DEVICE=cuda:1
+# 设置环境变量选择使用cpu还是gpu
+# export SENSEVOICE_DEVICE=cpu  # Linux/Mac
+# set SENSEVOICE_DEVICE=cpu     # Windows cpu/cuda:0
 
 import os, re
 from fastapi import FastAPI, File, Form
@@ -7,6 +9,7 @@ from fastapi.responses import HTMLResponse
 from typing_extensions import Annotated
 from typing import List
 from enum import Enum
+import torch
 import torchaudio
 from model import SenseVoiceSmall
 from funasr.utils.postprocess_utils import rich_transcription_postprocess
@@ -22,9 +25,25 @@ class Language(str, Enum):
     ko = "ko"
     nospeech = "nospeech"
 
-model_dir = "iic/SenseVoiceSmall"
+model_dir = "./model/iic/SenseVoiceSmall"
 m, kwargs = SenseVoiceSmall.from_pretrained(model=model_dir, device=os.getenv("SENSEVOICE_DEVICE", "cuda:0"))
 m.eval()
+
+# 设备诊断信息
+print("=" * 50)
+print("🔧 SenseVoice 设备诊断信息")
+print("=" * 50)
+print(f"环境变量 SENSEVOICE_DEVICE: {os.getenv('SENSEVOICE_DEVICE', '未设置')}")
+print(f"CUDA 可用: {torch.cuda.is_available()}")
+if torch.cuda.is_available():
+    print(f"GPU 数量: {torch.cuda.device_count()}")
+    print(f"当前 GPU: {torch.cuda.get_device_name()}")
+
+# 模型初始化后检查
+device_info = next(m.parameters()).device
+print(f"模型实际运行设备: {device_info}")
+print(f"设备类型: {'🚀 GPU 加速' if device_info.type == 'cuda' else '⚠️  CPU 模式'}")
+print("=" * 50)
 
 regex = r"<\|.*\|>"
 
